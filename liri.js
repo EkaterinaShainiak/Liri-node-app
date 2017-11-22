@@ -1,6 +1,7 @@
 var inquirer = require("inquirer");
 var keys = require("./keys.js");
 var request = require('request');
+var fs = require('fs');
 
 inquirer.prompt([
     {
@@ -46,6 +47,7 @@ inquirer.prompt([
                 });
             break;
         case "do-what-it-says":
+            doWhatItSays();
             break;
         default:
             console.log("default case")
@@ -118,5 +120,32 @@ function movieThis(movie) {
         }
     });
 }
+
+function doWhatItSays() {
+    fs.readFile("random.txt", "utf8", function(error, data){
+        if (error){
+            console.log(error);
+        }
+        var info = data.split(",");
+        var command = info[0];
+        var value = info[1];
+        switch (command) {
+            case "my-tweets":
+                Tweets();
+                break;
+            case "spotify-this-song":
+                    spotifyThisSong(value);
+                break;
+            case "movie-this":
+                    movieThis(value);
+                break;
+            case "do-what-it-says":
+                doWhatItSays();
+                break;
+            default:
+                console.log("default case")
+        };
+    });
+};
 
 
