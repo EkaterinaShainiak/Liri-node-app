@@ -12,7 +12,12 @@ var spotify = {
     secret: "911ec5e19c194cdd800dc88a46a0e863"
   };
 
+var omdb = {
+    apikey: "40e9cece"
+}
+
 module.exports = {
     twitterKeys: twitterKeys,
-    spotify: spotify
+    spotify: spotify,
+    omdb: omdb
 };

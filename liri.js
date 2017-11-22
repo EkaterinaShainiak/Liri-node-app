@@ -1,6 +1,6 @@
 var inquirer = require("inquirer");
 var keys = require("./keys.js");
-
+var request = require('request');
 
 inquirer.prompt([
     {
@@ -31,6 +31,19 @@ inquirer.prompt([
                 });
             break;
         case "movie-this":
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "movie",
+                    message: "what is a movie?",
+                    default: "Mr. Nobody."
+                }
+            ]).then(function (answer) {
+                movieThis(answer.movie);
+            })
+                .catch(function (err) {
+                    console.log(err);
+                });
             break;
         case "do-what-it-says":
             break;
@@ -71,10 +84,10 @@ function spotifyThisSong(song) {
                 }
                 song = song.slice(0, song.length - 2);
                 song += "\n URL: " + tracks[i].preview_url + "\n\n";
-                
+
                 console.log(song);
             }
-            
+
         })
         .catch(function (err) {
             console.log(err);
@@ -82,5 +95,28 @@ function spotifyThisSong(song) {
 
 };
 
+
+function movieThis(movie) {
+    var omdb = keys.omdb;
+    var content = [];
+    var url = "http://www.omdbapi.com/?apikey=" + omdb.apikey + "&t=" + movie;
+    request(url, function (error, response, body) {
+        if (error) {
+            console.log(error);
+        }
+        var data = JSON.parse(body);
+        content.push(data.Title);
+        content.push(data.Year);
+        content.push(data.imdbRating);
+        content.push(data.Ratings[1].Value);
+        content.push(data.Language);
+        content.push(data.Plot);
+        content.push(data.Actors);
+
+        for (var i = 0; i < content.length; i++) {
+            console.log(content[i]);
+        }
+    });
+}
 
 
