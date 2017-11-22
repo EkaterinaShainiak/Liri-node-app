@@ -3,6 +3,7 @@ var keys = require("./keys.js");
 var request = require('request');
 var fs = require('fs');
 
+
 inquirer.prompt([
     {
         type: 'list',
@@ -15,6 +16,7 @@ inquirer.prompt([
     switch (answers.command) {
         case "my-tweets":
             Tweets();
+            logIt("my-tweets", "");
             break;
         case "spotify-this-song":
             inquirer.prompt([
@@ -26,10 +28,12 @@ inquirer.prompt([
                 }
             ]).then(function (answer) {
                 spotifyThisSong(answer.song);
+                logIt(answers.command, answer.song); 
             })
                 .catch(function (err) {
                     console.log(err);
                 });
+                 
             break;
         case "movie-this":
             inquirer.prompt([
@@ -41,6 +45,7 @@ inquirer.prompt([
                 }
             ]).then(function (answer) {
                 movieThis(answer.movie);
+                logIt(answers.command, answer.movie);
             })
                 .catch(function (err) {
                     console.log(err);
@@ -145,7 +150,20 @@ function doWhatItSays() {
             default:
                 console.log("default case")
         };
+        logIt(command, value);
     });
 };
+
+function logIt(command, value){
+    var newLog = command + ',' + value + "\n";
+    console.log(newLog);
+    fs.appendFile("log.txt", newLog, function(err){
+        if(err){
+            console.log(err);
+        }
+    } )
+
+}
+
 
 
