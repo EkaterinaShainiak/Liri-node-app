@@ -16,7 +16,7 @@ npm install
 ```
 node liri
 ```
-![GitHub Logo](/images/logo.png)
+![ScreenShot1](/images/ScreenShot1.png)
 
 * Choose on of the commands: 
   * my-tweets - to grab tweets from Twitter
@@ -24,6 +24,7 @@ node liri
   * movie-this [movie] - to get information about a movie
   * do-what-it-says - to run any commands you have run in the past (all commands are logged to the random.txt file)
 
-![GitHub Logo](/images/logo.png)
-![GitHub Logo](/images/logo.png)
-![GitHub Logo](/images/logo.png)
+![tweets](/images/tweets.png)
+![song](/images/song.png)
+![movie](/images/movie.png)
+![sdo](/images/do.png)
